@@ -1,0 +1,18 @@
+#
+# EnderPearlCooldown config.yml
+# Version: 0.2
+#
+
+#Cooldown in seconds
+cooldown: 10
+#The format for cooldown
+format: '0.0'
+#How often the name will be updated
+#in ticks
+interval: 2
+xp-bar: true
+#The name of the held enderpearl when the player is on cooldown
+#Use <time> for the time left
+pearl-name: '&bCooldown: &c<time> seconds'
+#Cooldown message
+cooldown-message: '&3You must wait &c<time> &3seconds before using that again!'

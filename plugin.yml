@@ -1,0 +1,9 @@
+name: EnderPearlCooldown
+main: com.gmail.thetoppe5.enderpearlcooldown.EnderPearlCooldown
+version: 0.1
+description: A simple enderpearl cooldown plugin
+commands:
+  enderpearlcooldown:
+    description: Reloads the plugin.
+    permission: enderpearlcooldown.reload
+    aliases: [epearlsreload]
