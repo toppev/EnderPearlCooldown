@@ -19,7 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class EnderPearlCooldown extends JavaPlugin implements CommandExecutor{
 
 
-	public static final String WEBSITE_URL = "https://api.spigotmc.org/legacy/update.php?resource=43307/";
+	private static final String WEBSITE_URL = "https://api.spigotmc.org/legacy/update.php?resource=43307/";
 
 	private String pearlName;
 	private double cooldown;
@@ -29,10 +29,9 @@ public class EnderPearlCooldown extends JavaPlugin implements CommandExecutor{
 
 	@Override
 	public void onEnable() {
-		saveDefaultConfig();
+		loadConfig();
 		Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
-		load();
-		
+
 		new BukkitRunnable() {
 
 			@Override
@@ -42,11 +41,12 @@ public class EnderPearlCooldown extends JavaPlugin implements CommandExecutor{
 		}.runTaskAsynchronously(this);
 	}
 
+
 	@Override
 	public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
 		long st = System.currentTimeMillis();
 		reloadConfig();
-		load();
+		loadConfig();
 		long et = System.currentTimeMillis();
 		sender.sendMessage(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "EnderPearlCooldown was reloaded in " + (et-st) + "ms.");
 		sender.sendMessage(ChatColor.DARK_AQUA + "Checking for updates...");
@@ -56,21 +56,29 @@ public class EnderPearlCooldown extends JavaPlugin implements CommandExecutor{
 			@Override
 			public void run() {
 				checkUpdate();
-				if(updateAvailable && sender != null) {
-					sender.sendMessage(ChatColor.GRAY + "There is a new update available for " + getDescription().getName());
-					sender.sendMessage(ChatColor.GRAY + "Link: https://www.spigotmc.org/resources/43307/updates");
+				if(sender != null) {
+					if(updateAvailable) {
+						sender.sendMessage(ChatColor.GRAY + "There is a new update available for " + getDescription().getName());
+						sender.sendMessage(ChatColor.GRAY + "Link: https://www.spigotmc.org/resources/43307/updates");
+					}
+					else {
+						sender.sendMessage(ChatColor.GRAY + "No updates found for " + getDescription().getName());
+					}
 				}
 			}
 		}.runTaskAsynchronously(this);
 		return true;
 	}
 
-	private void load() {
+
+	private void loadConfig() {
+		saveDefaultConfig();
 		format = new DecimalFormat(getConfig().getString("format"));
 		pearlName = getConfig().getString("pearl-name");
 		cooldown = getConfig().getDouble("cooldown");
 		interval = getConfig().getInt("interval");
 		xpBar = getConfig().getBoolean("xp-bar");
+		asyncUpdate = getConfig().getBoolean("async-update");
 	}
 
 
@@ -91,10 +99,14 @@ public class EnderPearlCooldown extends JavaPlugin implements CommandExecutor{
 			if(!this.getDescription().getVersion().equals(str2)) {
 				updateAvailable = true;
 			}
+			Bukkit.getLogger().info("There is a new update available for " + getDescription().getName());
+			Bukkit.getLogger().info("Link: https://www.spigotmc.org/resources/43307/updates");
 		}catch(IOException e) {
 			Bukkit.getLogger().warning("Failed to check updates for " + getDescription().getName() + " " + getDescription().getVersion());
 		}
 	}
+
+
 
 	public DecimalFormat getFormat() {
 		return format;

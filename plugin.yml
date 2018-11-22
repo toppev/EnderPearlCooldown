@@ -1,6 +1,6 @@
 name: EnderPearlCooldown
 main: com.gmail.thetoppe5.enderpearlcooldown.EnderPearlCooldown
-version: 0.1
+version: 1.2
 description: A simple enderpearl cooldown plugin
 commands:
   enderpearlcooldown:

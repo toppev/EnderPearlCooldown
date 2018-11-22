@@ -1,6 +1,5 @@
 #
 # EnderPearlCooldown config.yml
-# Version: 0.2
 #
 
 #Cooldown in seconds
@@ -16,3 +15,5 @@ xp-bar: true
 pearl-name: '&bCooldown: &c<time> seconds'
 #Cooldown message
 cooldown-message: '&3You must wait &c<time> &3seconds before using that again!'
+#Better performance but may cause problems
+async-update: false
