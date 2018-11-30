@@ -47,7 +47,7 @@ public class EnderPearlCooldown extends JavaPlugin implements CommandExecutor {
         loadConfig();
         long et = System.currentTimeMillis();
         sender.sendMessage(
-                ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "EnderPearlCooldown was reloaded in " + (et - st) + "ms.");
+                ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "EnderPearlCooldown was reloaded in " + (et - st) + " ms.");
         sender.sendMessage(ChatColor.DARK_AQUA + "Checking for updates...");
 
         new BukkitRunnable() {
@@ -87,14 +87,14 @@ public class EnderPearlCooldown extends JavaPlugin implements CommandExecutor {
             conn.setConnectTimeout(10000);
             conn.setReadTimeout(10000);
             conn.connect();
-            BufferedReader localBufferedReader = new BufferedReader(
+            BufferedReader reader = new BufferedReader(
                     new InputStreamReader(conn.getInputStream(), Charset.forName("UTF-8")));
-            StringBuilder localStringBuilder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
             String str1;
-            while ((str1 = localBufferedReader.readLine()) != null) {
-                localStringBuilder.append(str1);
+            while ((str1 = reader.readLine()) != null) {
+                builder.append(str1);
             }
-            String str2 = localStringBuilder.toString();
+            String str2 = builder.toString();
             if (!this.getDescription().getVersion().equals(str2)) {
                 updateAvailable = true;
                 Bukkit.getLogger().info("There is a new update available for " + getDescription().getName());
