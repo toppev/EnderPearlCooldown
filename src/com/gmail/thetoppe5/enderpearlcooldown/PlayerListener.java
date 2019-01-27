@@ -45,7 +45,7 @@ public class PlayerListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled=true)
     public void onLaunch(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         if (e.getItem() != null && e.getItem().getType() == Material.ENDER_PEARL) {
